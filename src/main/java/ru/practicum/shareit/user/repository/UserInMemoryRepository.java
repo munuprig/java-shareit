@@ -7,7 +7,7 @@ import ru.practicum.shareit.user.model.User;
 import java.util.*;
 
 @Component
-public class UserInMemoryRepository implements UserRepository{
+public class UserInMemoryRepository implements UserRepository {
     private static Long generatorId = 0L;
     private final Map<Long, User> users = new HashMap<>();
 

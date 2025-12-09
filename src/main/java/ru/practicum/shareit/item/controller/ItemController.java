@@ -42,14 +42,14 @@ public class ItemController {
 
     @PostMapping
     public ItemDto create(@Validated(Create.class) @RequestBody ItemDto itemDto,
-                               @RequestHeader("X-Sharer-User-Id") long userId) {
+                          @RequestHeader("X-Sharer-User-Id") long userId) {
         log.info("POST / items / {}", itemDto.getName());
         return itemService.create(itemDto, userId);
     }
 
     @PatchMapping("/{itemId}")
     public ItemDto update(@PathVariable long itemId, @RequestBody ItemDto itemDto,
-                              @RequestHeader("X-Sharer-User-Id") long userId) {
+                          @RequestHeader("X-Sharer-User-Id") long userId) {
         log.info("PATCH / items / {}", itemId);
         return itemService.update(itemId, itemDto, userId);
     }
