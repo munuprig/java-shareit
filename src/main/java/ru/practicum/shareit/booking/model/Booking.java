@@ -1,7 +1,8 @@
-package ru.practicum.shareit.request;
+package ru.practicum.shareit.booking.model;
 
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
+import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDate;
@@ -12,12 +13,16 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ItemRequest {
+public class Booking {
     private Long id;
 
-    private String description;
+    private LocalDate start;
 
-    private User requestor;
+    private LocalDate end;
 
-    private LocalDate created;
+    private Item item;
+
+    private User booker;
+
+    private BookingStatus status;
 }
