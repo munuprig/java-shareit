@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-    private ItemService service;
-
     private final ItemService itemService;
 
     @GetMapping("/{itemId}")

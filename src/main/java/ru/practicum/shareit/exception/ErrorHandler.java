@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class
-ErrorHandler {
+public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validateException(final MethodArgumentNotValidException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse("Ошибка валидации",
                 e.getMessage()
         );
@@ -25,14 +24,14 @@ ErrorHandler {
 
     @ExceptionHandler
     public ResponseEntity<String> validateException(final ConstraintViolationException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(final Throwable e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse(
                 "Произошла непредвиденная ошибка.",
                 e.getMessage()
@@ -42,7 +41,7 @@ ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse entityNotFoundException(final EntityNotFoundException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse(
                 "Класс не найден",
                 e.getMessage()
@@ -52,7 +51,7 @@ ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse userNotFoundException(final UserNotFoundException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse(
                 "Пользователь не найден",
                 e.getMessage()
@@ -62,7 +61,7 @@ ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse userNotUniqueEmailException(final NotUniqueEmailException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse(
                 "Email %s уже используется.",
                 e.getMessage());
@@ -71,7 +70,7 @@ ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse itemNotFoundException(final ItemNotFoundException e) {
-        log.info(e.getMessage());
+        log.error(e.getMessage());
         return new ErrorResponse(
                 "Предмет не найден",
                 e.getMessage()

@@ -6,9 +6,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
-@Data
-@Validated
-@EqualsAndHashCode
+@Getter
+@Setter
 @Builder(toBuilder = true)
 @RequiredArgsConstructor
 @AllArgsConstructor

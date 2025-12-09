@@ -1,12 +1,10 @@
 package ru.practicum.shareit.item.model;
 
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
 import ru.practicum.shareit.request.ItemRequest;
 
-@Data
-@Validated
-@EqualsAndHashCode
+@Getter
+@Setter
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor

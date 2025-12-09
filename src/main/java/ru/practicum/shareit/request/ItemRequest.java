@@ -1,14 +1,12 @@
 package ru.practicum.shareit.request;
 
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDate;
 
-@Data
-@Validated
-@EqualsAndHashCode
+@Getter
+@Setter
 @Builder(toBuilder = true)
 @RequiredArgsConstructor
 @AllArgsConstructor
