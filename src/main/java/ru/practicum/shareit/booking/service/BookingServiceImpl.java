@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotAvailableToBookOwnItemsException("Функция бронировать собственную вещь отсутствует");
         }
         if (!bookingDtoIn.getEnd().isAfter(bookingDtoIn.getStart()) ||
-                bookingDtoIn.getStart().isBefore( LocalDateTime.now())) {
+                bookingDtoIn.getStart().isBefore(LocalDateTime.now())) {
             throw new WrongDatesException("Дата начала бронирования должна быть раньше даты возврата");
         }
         Booking booking = new Booking();
