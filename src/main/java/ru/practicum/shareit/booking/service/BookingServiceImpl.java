@@ -97,33 +97,20 @@ public class BookingServiceImpl implements BookingService {
         } catch (IllegalArgumentException e) {
             throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
         }
-        switch (bookingState) {
-            case ALL:
-                bookings = bookingRepository.findAllByBookerId(booker.getId(), Sort.by(DESC, "start"));
-                break;
-            case CURRENT:
-                bookings = bookingRepository.findAllByBookerIdAndStateCurrent(booker.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case PAST:
-                bookings = bookingRepository.findAllByBookerIdAndStatePast(booker.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case FUTURE:
-                bookings = bookingRepository.findAllByBookerIdAndStateFuture(booker.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case WAITING:
-                bookings = bookingRepository.findAllByBookerIdAndStatus(booker.getId(),
-                        BookingStatus.WAITING, Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case REJECTED:
-                bookings = bookingRepository.findAllByBookerIdAndStatus(booker.getId(),
-                        BookingStatus.REJECTED, Sort.by(DESC, "end"));
-                break;
-            default:
-                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
-        }
+        bookings = switch (bookingState) {
+            case ALL -> bookingRepository.findAllByBookerId(booker.getId(), Sort.by(DESC, "start"));
+            case CURRENT -> bookingRepository.findAllByBookerIdAndStateCurrent(booker.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case PAST -> bookingRepository.findAllByBookerIdAndStatePast(booker.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case FUTURE -> bookingRepository.findAllByBookerIdAndStateFuture(booker.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case WAITING -> bookingRepository.findAllByBookerIdAndStatus(booker.getId(),
+                    BookingStatus.WAITING, Sort.by(Sort.Direction.DESC, "start"));
+            case REJECTED -> bookingRepository.findAllByBookerIdAndStatus(booker.getId(),
+                    BookingStatus.REJECTED, Sort.by(DESC, "end"));
+            default -> throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
+        };
         return bookings.stream().map(BookingMapper::toBookingDtoOut).collect(Collectors.toList());
     }
 
@@ -138,34 +125,21 @@ public class BookingServiceImpl implements BookingService {
         } catch (IllegalArgumentException e) {
             throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
         }
-        switch (bookingState) {
-            case ALL:
-                bookings = bookingRepository.findAllByOwnerId(owner.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case CURRENT:
-                bookings = bookingRepository.findAllByOwnerIdAndStateCurrent(owner.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case PAST:
-                bookings = bookingRepository.findAllByOwnerIdAndStatePast(owner.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case FUTURE:
-                bookings = bookingRepository.findAllByOwnerIdAndStateFuture(owner.getId(),
-                        Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case WAITING:
-                bookings = bookingRepository.findAllByOwnerIdAndStatus(owner.getId(),
-                        BookingStatus.WAITING, Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            case REJECTED:
-                bookings = bookingRepository.findAllByOwnerIdAndStatus(owner.getId(),
-                        BookingStatus.REJECTED, Sort.by(Sort.Direction.DESC, "start"));
-                break;
-            default:
-                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
-        }
+        bookings = switch (bookingState) {
+            case ALL -> bookingRepository.findAllByOwnerId(owner.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case CURRENT -> bookingRepository.findAllByOwnerIdAndStateCurrent(owner.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case PAST -> bookingRepository.findAllByOwnerIdAndStatePast(owner.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case FUTURE -> bookingRepository.findAllByOwnerIdAndStateFuture(owner.getId(),
+                    Sort.by(Sort.Direction.DESC, "start"));
+            case WAITING -> bookingRepository.findAllByOwnerIdAndStatus(owner.getId(),
+                    BookingStatus.WAITING, Sort.by(Sort.Direction.DESC, "start"));
+            case REJECTED -> bookingRepository.findAllByOwnerIdAndStatus(owner.getId(),
+                    BookingStatus.REJECTED, Sort.by(Sort.Direction.DESC, "start"));
+            default -> throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
+        };
         return bookings.stream().map(BookingMapper::toBookingDtoOut).collect(Collectors.toList());
     }
 
