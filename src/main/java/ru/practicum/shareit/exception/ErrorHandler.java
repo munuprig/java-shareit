@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler({MethodArgumentNotValidException.class, ItemIsNotAvailableException.class,
+            WrongDatesException.class, BookingCanBeApprovedOnlyByOwnerException.class,
+            UnsupportedStatusException.class, NotBookerException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse validateException(final MethodArgumentNotValidException e) {
+    public ErrorResponse validateException(RuntimeException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Ошибка валидации",
-                e.getMessage()
-        );
+        return new ErrorResponse("Ошибка валидации", e.getMessage());
     }
 
     @ExceptionHandler
@@ -38,14 +38,12 @@ public class ErrorHandler {
         );
     }
 
-    @ExceptionHandler
+    @ExceptionHandler({EntityNotFoundException.class, IllegalVewAndUpdateException.class,
+            NotAvailableToBookOwnItemsException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse entityNotFoundException(final EntityNotFoundException e) {
+    public ErrorResponse entityNotFoundException(RuntimeException e) {
         log.error(e.getMessage());
-        return new ErrorResponse(
-                "Класс не найден",
-                e.getMessage()
-        );
+        return new ErrorResponse("Класс не найден",e.getMessage());
     }
 
     @ExceptionHandler
