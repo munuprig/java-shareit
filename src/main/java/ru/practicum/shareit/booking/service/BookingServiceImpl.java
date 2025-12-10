@@ -80,7 +80,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = getById(bookingId);
         User booker = booking.getBooker();
         User owner = getUser(booking.getItem().getOwner().getId());
-        if (booker.getId() != userId && owner.getId() != userId) {
+        if (!booker.getId().equals(userId) && !owner.getId().equals(userId)) {
             throw new IllegalVewAndUpdateException("Только автор или владелец может просматривать данное броинрование");
         }
         return BookingMapper.toBookingDtoOut(booking);
