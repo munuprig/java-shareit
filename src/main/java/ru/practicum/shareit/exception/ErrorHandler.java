@@ -29,7 +29,7 @@ public class ErrorHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, IllegalVewAndUpdateException.class})
+    @ExceptionHandler({EntityNotFoundException.class, NotAvailableToBookOwnItemsException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse entityNotFoundException(RuntimeException e) {
         log.error(e.getMessage());
@@ -38,10 +38,10 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse notAvailableToBookOwnItemsException(final NotAvailableToBookOwnItemsException e) {
+    public ErrorResponse illegalVewAndUpdateException(final IllegalVewAndUpdateException e) {
         log.error(e.getMessage());
         return new ErrorResponse(
-                "Функция бронировать собственную вещь отсутствует",
+                "Подтвердить бронирование может только собственник вещи",
                 e.getMessage()
         );
     }
