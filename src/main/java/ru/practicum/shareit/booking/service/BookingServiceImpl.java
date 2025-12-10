@@ -41,7 +41,7 @@ public class BookingServiceImpl implements BookingService {
         if (!item.getAvailable()) {
             throw new ItemIsNotAvailableException("Вещь недоступна для брони");
         }
-        if (booker.getId() == item.getOwner().getId()) {
+        if (booker.getId().equals(item.getOwner().getId())) {
             throw new NotAvailableToBookOwnItemsException("Функция бронировать собственную вещь отсутствует");
         }
         if (!bookingDtoIn.getEnd().isAfter(bookingDtoIn.getStart()) ||
@@ -64,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getStatus() != BookingStatus.WAITING) {
             throw new ItemIsNotAvailableException("Вещь уже забронирована");
         }
-        if (owner.getId() != item.getOwner().getId()) {
+        if (!owner.getId().equals(item.getOwner().getId())) {
             throw new IllegalVewAndUpdateException("Подтвердить бронирование может только собственник вещи");
         }
         BookingStatus newBookingStatus = isApproved ? BookingStatus.APPROVED : BookingStatus.REJECTED;

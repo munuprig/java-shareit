@@ -66,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
         String name = itemDtoIn.getName();
         String description = itemDtoIn.getDescription();
         Boolean available = itemDtoIn.getAvailable();
-        if (item.getOwner().getId() == userId) {
+        if (item.getOwner().getId().equals(userId)) {
             if (name != null && !name.isBlank()) {
                 item.setName(name);
             }
