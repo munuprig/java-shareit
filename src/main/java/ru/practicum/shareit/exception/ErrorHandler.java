@@ -29,21 +29,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, NotAvailableToBookOwnItemsException.class})
+    @ExceptionHandler({EntityNotFoundException.class, IllegalVewAndUpdateException.class,
+            NotAvailableToBookOwnItemsException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse entityNotFoundException(RuntimeException e) {
         log.error(e.getMessage());
         return new ErrorResponse("Класс не найден",e.getMessage());
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse illegalVewAndUpdateException(final IllegalVewAndUpdateException e) {
-        log.error(e.getMessage());
-        return new ErrorResponse(
-                "Подтвердить бронирование может только собственник вещи",
-                e.getMessage()
-        );
     }
 
     @ExceptionHandler
