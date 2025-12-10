@@ -2,6 +2,7 @@ package ru.practicum.shareit.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,23 +20,13 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validateException(RuntimeException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Ошибка валидации", e.getMessage());
+        return new ErrorResponse("Ошибка валидации",e.getMessage());
     }
 
     @ExceptionHandler
     public ResponseEntity<String> validateException(final ConstraintViolationException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleThrowable(final Throwable e) {
-        log.error(e.getMessage());
-        return new ErrorResponse(
-                "Произошла непредвиденная ошибка.",
-                e.getMessage()
-        );
     }
 
     @ExceptionHandler({EntityNotFoundException.class, IllegalVewAndUpdateException.class,
@@ -58,7 +49,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse userNotUniqueEmailException(final NotUniqueEmailException e) {
+    public ErrorResponse userNotUniqueEmailException(DataIntegrityViolationException e) {
         log.error(e.getMessage());
         return new ErrorResponse(
                 "Email %s уже используется.",
@@ -66,11 +57,11 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse itemNotFoundException(final ItemNotFoundException e) {
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleThrowable(final Throwable e) {
         log.error(e.getMessage());
         return new ErrorResponse(
-                "Предмет не найден",
+                "Произошла непредвиденная ошибка.",
                 e.getMessage()
         );
     }

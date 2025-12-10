@@ -13,7 +13,7 @@ import ru.practicum.shareit.util.Update;
 @AllArgsConstructor
 public class UserDto {
 
-    private long id;
+    private Long id;
 
     @NotBlank(groups = {Create.class})
     @Size(max = 255, groups = {Create.class, Update.class})
