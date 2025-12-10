@@ -107,7 +107,9 @@ public class ItemServiceImpl implements ItemService {
         if (text.isBlank()) {
             return Collections.emptyList();
         }
-        return itemRepository.search(text).stream().map(ItemMapper::toItemDtoOut).collect(toList());
+        return itemRepository.search(text).stream()
+                .map(ItemMapper::toItemDtoOut)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
