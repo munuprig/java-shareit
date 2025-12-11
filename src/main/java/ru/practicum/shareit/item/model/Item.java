@@ -9,7 +9,6 @@ import ru.practicum.shareit.user.model.User;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Item {
 

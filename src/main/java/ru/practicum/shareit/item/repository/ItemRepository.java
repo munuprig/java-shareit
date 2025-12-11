@@ -10,8 +10,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByOwnerId(Long userId);
 
     @Query("SELECT i FROM Item i " +
-            "WHERE UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
-            "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%')) " +
+            "WHERE (UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
+            "OR UPPER(i.description) LIKE UPPER(CONCAT('%', ?1, '%'))) " +
             "AND i.available = true")
     List<Item> search(String text);
 
