@@ -11,8 +11,8 @@ import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.exception.WrongDatesException;
 import ru.practicum.shareit.utils.Create;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
 @Controller

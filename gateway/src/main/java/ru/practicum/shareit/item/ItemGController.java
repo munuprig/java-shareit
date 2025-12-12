@@ -12,8 +12,8 @@ import ru.practicum.shareit.item.dto.ItemDtoRequest;
 import ru.practicum.shareit.utils.Create;
 import ru.practicum.shareit.utils.Update;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 
 @Validated
