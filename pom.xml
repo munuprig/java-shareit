@@ -17,8 +17,8 @@
 	<name>ShareIt</name>
 
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -26,15 +26,6 @@
 		<module>gateway</module>
 		<module>server</module>
 	</modules>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.ow2.asm</groupId>
-			<artifactId>asm</artifactId>
-			<version>9.4</version> <!-- Выбирайте самую свежую версию, поддерживающую Java 11+ -->
-		</dependency>
-	</dependencies>
-
 
 	<build>
 		<pluginManagement>
@@ -89,7 +80,7 @@
 				<plugin>
 					<groupId>com.github.spotbugs</groupId>
 					<artifactId>spotbugs-maven-plugin</artifactId>
-					<version>4.7.0.0</version>
+					<version>4.7.3</version>
 					<configuration>
 						<effort>Max</effort>
 						<threshold>High</threshold>
