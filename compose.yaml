@@ -23,16 +23,11 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shareit
 
   db:
-    image: postgres:16.1
-    container_name: postgres
+    image: postgres:13.7-alpine
+    container_name: shareit-db
     ports:
       - "6541:5432"
     environment:
       - POSTGRES_DB=shareit
-      - POSTGRES_USER=shareit
-      - POSTGRES_PASSWORD=shareit
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -q -d shareit -U shareit"]
-      timeout: 5s
-      interval: 5s
-      retries: 10
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
