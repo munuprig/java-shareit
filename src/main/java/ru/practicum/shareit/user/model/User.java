@@ -1,23 +1,23 @@
 package ru.practicum.shareit.user.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
-@Builder(toBuilder = true)
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Имя не может быть пустым")
-    @Pattern(regexp = "^\\S*$", message = "Логин не может содержать пробелы.")
+    @Column(nullable = false)
     private String name;
 
-    @NotBlank(message = "Электронная почта не может быть пустым.")
-    @Email(message = "Электронная почта должна содержать символ @.")
+    @Column(nullable = false, unique = true)
     private String email;
 }
