@@ -55,7 +55,7 @@ public class BookingService {
             throw new ItemIsNotAvailableException("Вещь уже забронирована");
         }
         Item item = getItem(booking.getItem().getId());
-        if (userId != item.getOwner().getId()) {
+        if (!userId.equals(item.getOwner().getId())) {
             throw new IllegalVewAndUpdateException("Подтвердить бронирование может только собственник вещи");
         }
         getUser(userId);
@@ -71,7 +71,7 @@ public class BookingService {
         Booking booking = getById(bookingId);
         User booker = booking.getBooker();
         User owner = getUser(booking.getItem().getOwner().getId());
-        if (booker.getId() != userId && owner.getId() != userId) {
+        if (!booker.getId().equals(userId) && !owner.getId().equals(userId)) {
             throw new IllegalVewAndUpdateException("Только автор или владелец может просматривать данное бронирование");
         }
         return BookingMapper.toBookingDtoOut(booking);
