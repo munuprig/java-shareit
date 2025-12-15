@@ -20,10 +20,16 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler({EntityNotFoundException.class, IllegalVewAndUpdateException.class,
-            NotAvailableToBookOwnItemsException.class})
+    @ExceptionHandler({EntityNotFoundException.class, NotAvailableToBookOwnItemsException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse entityNotFoundException(RuntimeException e) {
+        log.info(e.getMessage());
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse illegalVewAndUpdateException(IllegalVewAndUpdateException e) {
         log.info(e.getMessage());
         return new ErrorResponse(e.getMessage());
     }
