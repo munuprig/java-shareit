@@ -36,7 +36,7 @@ public class ItemRequestService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public ItemRequestDtoOut saveNewRequest(ItemRequestDtoIn requestDtoIn, long userId) {
+    public ItemRequestDtoOut saveNewRequest(ItemRequestDtoIn requestDtoIn, Long userId) {
         log.info("Создание нового запроса {}", requestDtoIn.getDescription());
         User requestor = getUser(userId);
         ItemRequest request = ItemRequestMapper.toItemRequest(requestDtoIn);
@@ -45,14 +45,14 @@ public class ItemRequestService {
         return ItemRequestMapper.toItemRequestDtoOut(requestRepository.save(request));
     }
 
-    public List<ItemRequestDtoOut> getRequestsByRequestor(long userId) {
+    public List<ItemRequestDtoOut> getRequestsByRequestor(Long userId) {
         log.info("Получение всех запросов по просителю с идентификатором {}", userId);
         getUser(userId);
         List<ItemRequest> requests = requestRepository.findAllByRequestorId(userId, Sort.by(DESC, "created"));
         return addItems(requests);
     }
 
-    public List<ItemRequestDtoOut> getAllRequests(Integer from, Integer size, long userId) {
+    public List<ItemRequestDtoOut> getAllRequests(Integer from, Integer size, Long userId) {
         log.info("Получение всех запросов постранично");
         getUser(userId);
         Pageable pageable = PageRequest.of(from / size, size, Sort.by("created").descending());
@@ -60,7 +60,7 @@ public class ItemRequestService {
         return addItems(requests);
     }
 
-    public ItemRequestDtoOut getRequestById(long requestId, long userId) {
+    public ItemRequestDtoOut getRequestById(Long requestId, Long userId) {
         log.info("Получение запроса по идентификатору {}", requestId);
         getUser(userId);
         ItemRequestDtoOut requestDtoOut = ItemRequestMapper.toItemRequestDtoOut(requestRepository.findById(requestId)
@@ -83,7 +83,7 @@ public class ItemRequestService {
         return requestsOut;
     }
 
-    private User getUser(long userId) {
+    private User getUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));
     }

@@ -32,7 +32,7 @@ class ItemServiceIntegrationTest {
 
     @Test
     void saveNewItem() {
-        UserDto userDto = new UserDto(1L, "User", "user@mail.ru");
+        UserDto userDto = new UserDto(null, "User", "user@mail.ru");
         ItemDtoIn itemDtoIn = new ItemDtoIn("item", "cool item", true, null);
 
         UserDto user = userService.saveNewUser(userDto);

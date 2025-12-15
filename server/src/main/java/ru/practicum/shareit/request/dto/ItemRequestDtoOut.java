@@ -10,13 +10,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ItemRequestDtoOut {
-    private long id;
+    private Long id;
     private String description;
-    private long requestorId;
+    private Long requestorId;
     private LocalDateTime created;
     private List<ItemDtoOut> items;
 
-    public ItemRequestDtoOut(long id, String description, long requestorId, LocalDateTime created) {
+    public ItemRequestDtoOut(Long id, String description, Long requestorId, LocalDateTime created) {
         this.id = id;
         this.description = description;
         this.requestorId = requestorId;

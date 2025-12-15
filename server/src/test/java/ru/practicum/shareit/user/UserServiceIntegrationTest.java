@@ -28,7 +28,7 @@ class UserServiceIntegrationTest {
 
     @Test
     void saveNewUser() {
-        UserDto userDto = new UserDto(1L, "User", "user@mail.ru");
+        UserDto userDto = new UserDto(null, "User", "user@mail.ru");
 
         userService.saveNewUser(userDto);
 

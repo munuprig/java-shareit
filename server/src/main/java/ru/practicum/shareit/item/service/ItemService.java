@@ -29,10 +29,7 @@ import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -52,7 +49,7 @@ public class ItemService {
     private final CommentRepository commentRepository;
     private final ItemRequestRepository requestRepository;
 
-    public ItemDtoOut saveNewItem(ItemDtoIn itemDtoIn, long userId) {
+    public ItemDtoOut saveNewItem(ItemDtoIn itemDtoIn, Long userId) {
         log.info("Создание новой вещи {}", itemDtoIn.getName());
         User owner = getUser(userId);
         Item item = ItemMapper.toItem(itemDtoIn);
@@ -65,14 +62,14 @@ public class ItemService {
         return ItemMapper.toItemDtoOut(itemRepository.save(item));
     }
 
-    public ItemDtoOut updateItem(long itemId, ItemDtoIn itemDtoIn, long userId) {
+    public ItemDtoOut updateItem(Long itemId, ItemDtoIn itemDtoIn, Long userId) {
         log.info("Обновление вещи {} с идентификатором {}", itemDtoIn.getName(), itemId);
         getUser(userId);
         Item item = getItem(itemId);
         String name = itemDtoIn.getName();
         String description = itemDtoIn.getDescription();
         Boolean available = itemDtoIn.getAvailable();
-        if (item.getOwner().getId() == userId) {
+        if (Objects.equals(item.getOwner().getId(), userId)) {
             if (name != null && !name.isBlank()) {
                 item.setName(name);
             }
@@ -90,14 +87,14 @@ public class ItemService {
     }
 
     @Transactional(readOnly = true)
-    public ItemDtoOut getItemById(long itemId, long userId) {
+    public ItemDtoOut getItemById(Long itemId, Long userId) {
         log.info("Получение вещи по идентификатору {}", itemId);
         final Item item = getItem(itemId);
         return addBookingsAndComments(item, userId);
     }
 
     @Transactional(readOnly = true)
-    public List<ItemDtoOut> getItemsByOwner(Integer from, Integer size, long userId) {
+    public List<ItemDtoOut> getItemsByOwner(Integer from, Integer size, Long userId) {
         log.info("Получение вещи по владельцу {}", userId);
         getUser(userId);
         List<Item> items = itemRepository.findAllByOwnerId(userId, PageRequest.of(from / size, size,
@@ -115,7 +112,7 @@ public class ItemService {
                 .map(ItemMapper::toItemDtoOut).collect(toList());
     }
 
-    public CommentDtoOut saveNewComment(long itemId, CommentDtoIn commentDtoIn, long userId) {
+    public CommentDtoOut saveNewComment(Long itemId, CommentDtoIn commentDtoIn, Long userId) {
         if (!bookingRepository.existsByBookerIdAndItemIdAndEndBefore(userId, itemId, LocalDateTime.now())) {
             throw new NotBookerException("Пользователь не пользовался вещью");
         }
@@ -125,7 +122,7 @@ public class ItemService {
         return CommentMapper.toCommentDtoOut(comment);
     }
 
-    private ItemDtoOut addBookingsAndComments(Item item, long userId) {
+    private ItemDtoOut addBookingsAndComments(Item item, Long userId) {
         ItemDtoOut itemDtoOut = ItemMapper.toItemDtoOut(item);
 
         LocalDateTime thisMoment = LocalDateTime.now();
@@ -175,11 +172,11 @@ public class ItemService {
         for (Item item : items) {
             ItemDtoOut itemDtoOut = ItemMapper.toItemDtoOut(item);
             Booking lastBooking = itemsWithLastBookings.get(item);
-            if (itemsWithLastBookings.size() > 0 && lastBooking != null) {
+            if (!itemsWithLastBookings.isEmpty() && lastBooking != null) {
                 itemDtoOut.setLastBooking(BookingMapper.toBookingDtoShort(lastBooking));
             }
             Booking nextBooking = itemsWithNextBookings.get(item);
-            if (itemsWithNextBookings.size() > 0 && nextBooking != null) {
+            if (!itemsWithNextBookings.isEmpty() && nextBooking != null) {
                 itemDtoOut.setNextBooking(BookingMapper.toBookingDtoShort(nextBooking));
             }
             List<CommentDtoOut> commentDtoOuts = itemsWithComments.getOrDefault(item, Collections.emptyList())
@@ -193,12 +190,12 @@ public class ItemService {
         return itemDtoOuts;
     }
 
-    private User getUser(long userId) {
+    private User getUser(Long userId) {
         return userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));
     }
 
-    private Item getItem(long itemId) {
+    private Item getItem(Long itemId) {
         return itemRepository.findById(itemId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", Item.class)));
     }

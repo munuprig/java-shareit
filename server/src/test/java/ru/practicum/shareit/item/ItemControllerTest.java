@@ -36,13 +36,13 @@ class ItemControllerTest {
     private MockMvc mvc;
 
     private final ItemDtoOut itemDtoOut = new ItemDtoOut(
-            1,
+            1L,
             "item",
             "cool item",
             true,
             new UserDtoShort(1L, "User"));
     private final ItemDtoOut itemBlankName = new ItemDtoOut(
-            1,
+            1L,
             "",
             "cool item",
             true,

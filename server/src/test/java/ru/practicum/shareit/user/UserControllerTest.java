@@ -52,7 +52,7 @@ class UserControllerTest {
 
     @Test
     void getUserById() throws Exception {
-        when(userService.getUserById(anyInt())).thenReturn(userDto);
+        when(userService.getUserById(anyLong())).thenReturn(userDto);
 
         mvc.perform(get("/users/1"))
                 .andExpect(status().isOk());
@@ -75,7 +75,7 @@ class UserControllerTest {
 
     @Test
     void updateUser() throws Exception {
-        when(userService.updateUser(anyInt(), any())).thenReturn(userDto);
+        when(userService.updateUser(anyLong(), any())).thenReturn(userDto);
 
         mvc.perform(patch("/users/1", userDto.getId())
                         .content(mapper.writeValueAsString(userDto))

@@ -16,25 +16,25 @@ public class ItemRequestController {
 
     @PostMapping
     public ItemRequestDtoOut saveNewRequest(@RequestBody ItemRequestDtoIn requestDtoIn,
-                                            @RequestHeader("X-Sharer-User-Id") long userId) {
+                                            @RequestHeader("X-Sharer-User-Id") Long userId) {
         return requestService.saveNewRequest(requestDtoIn, userId);
     }
 
     @GetMapping
-    public List<ItemRequestDtoOut> getRequestsByRequestor(@RequestHeader("X-Sharer-User-Id") long userId) {
+    public List<ItemRequestDtoOut> getRequestsByRequestor(@RequestHeader("X-Sharer-User-Id") Long userId) {
         return requestService.getRequestsByRequestor(userId);
     }
 
     @GetMapping("/all")
     public List<ItemRequestDtoOut> getAllRequests(@RequestParam(defaultValue = "1") Integer from,
                                                  @RequestParam(defaultValue = "10") Integer size,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         return requestService.getAllRequests(from, size, userId);
     }
 
     @GetMapping("/{requestId}")
-    public ItemRequestDtoOut getRequestById(@PathVariable long requestId,
-                                            @RequestHeader("X-Sharer-User-Id") long userId) {
+    public ItemRequestDtoOut getRequestById(@PathVariable Long requestId,
+                                            @RequestHeader("X-Sharer-User-Id") Long userId) {
         return requestService.getRequestById(requestId, userId);
     }
 }

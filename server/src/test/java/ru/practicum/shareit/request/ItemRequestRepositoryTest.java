@@ -38,11 +38,11 @@ class ItemRequestRepositoryTest {
     private final User user = new User(null, "user", "user@mail.ru");
     private final User requestor = new User(null, "user2", "user2@mail.ru");
     private final Item item = new Item(null, "item", "cool", true, user, null);
-    private final Booking booking = new Booking(1L,
+    private final Booking booking = new Booking(null,
             LocalDateTime.of(2023, 7, 1, 12, 12, 12),
             LocalDateTime.of(2023, 7, 30, 12, 12, 12),
             item, requestor, BookingStatus.WAITING);
-    private final ItemRequest request = new ItemRequest(1L, "description", requestor, LocalDateTime.now());
+    private final ItemRequest request = new ItemRequest(null, "description", requestor, LocalDateTime.now());
 
     @BeforeEach
     void setUp() {

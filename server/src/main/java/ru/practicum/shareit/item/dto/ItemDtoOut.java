@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ItemDtoOut {
-    private long id;
+    private Long id;
     private String name;
     private String description;
     private Boolean available;
@@ -21,7 +21,7 @@ public class ItemDtoOut {
     private UserDtoShort owner;
     private Long requestId;
 
-    public ItemDtoOut(long id, String name, String description, Boolean available, UserDtoShort owner) {
+    public ItemDtoOut(Long id, String name, String description, Boolean available, UserDtoShort owner) {
         this.id = id;
         this.name = name;
         this.description = description;

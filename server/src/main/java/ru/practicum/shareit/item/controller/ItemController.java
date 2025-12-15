@@ -18,27 +18,27 @@ public class ItemController {
 
     @PostMapping
     public ItemDtoOut saveNewItem(@RequestBody ItemDtoIn itemDtoIn,
-                                  @RequestHeader("X-Sharer-User-Id") long userId) {
+                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemService.saveNewItem(itemDtoIn, userId);
     }
 
     @PatchMapping("/{itemId}")
-    public ItemDtoOut updateItem(@PathVariable long itemId,
+    public ItemDtoOut updateItem(@PathVariable Long itemId,
                                  @RequestBody ItemDtoIn itemDtoIn,
-                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemService.updateItem(itemId, itemDtoIn, userId);
     }
 
     @GetMapping("/{itemId}")
-    public ItemDtoOut getItemById(@PathVariable long itemId,
-                                  @RequestHeader("X-Sharer-User-Id") long userId) {
+    public ItemDtoOut getItemById(@PathVariable Long itemId,
+                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemService.getItemById(itemId, userId);
     }
 
     @GetMapping
     public List<ItemDtoOut> getItemsByOwner(@RequestParam(defaultValue = "1") Integer from,
                                             @RequestParam(defaultValue = "10") Integer size,
-                                            @RequestHeader("X-Sharer-User-Id") long userId) {
+                                            @RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemService.getItemsByOwner(from, size, userId);
     }
 
@@ -50,9 +50,9 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/comment")
-    public CommentDtoOut saveNewComment(@PathVariable long itemId,
+    public CommentDtoOut saveNewComment(@PathVariable Long itemId,
                                         @RequestBody CommentDtoIn commentDtoIn,
-                                        @RequestHeader("X-Sharer-User-Id") long userId) {
+                                        @RequestHeader("X-Sharer-User-Id") Long userId) {
         return itemService.saveNewComment(itemId, commentDtoIn, userId);
     }
 }

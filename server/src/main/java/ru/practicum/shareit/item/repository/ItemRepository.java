@@ -8,7 +8,7 @@ import ru.practicum.shareit.item.model.Item;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    List<Item> findAllByOwnerId(long userId, Pageable pageable);
+    List<Item> findAllByOwnerId(Long userId, Pageable pageable);
 
     @Query("SELECT i FROM Item i " +
             "WHERE UPPER(i.name) LIKE UPPER(CONCAT('%', ?1, '%')) " +
@@ -16,5 +16,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "AND i.available = true")
     List<Item> search(String text, Pageable pageable);
 
-    List<Item> findAllByRequestId(long requestId);
+    List<Item> findAllByRequestId(Long requestId);
 }

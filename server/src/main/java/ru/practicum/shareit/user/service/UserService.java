@@ -27,7 +27,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDto getUserById(long userId) {
+    public UserDto getUserById(Long userId) {
         log.info("Получение пользователя по идентификатору {}", userId);
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));
@@ -40,7 +40,7 @@ public class UserService {
         return UserMapper.toUserDto(user);
     }
 
-    public UserDto updateUser(long userId, UserDto userDto) {
+    public UserDto updateUser(Long userId, UserDto userDto) {
         log.info("Обновление существующего пользователя {}", userDto.getName());
         User oldUser = userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));
@@ -55,7 +55,7 @@ public class UserService {
         return UserMapper.toUserDto(oldUser);
     }
 
-    public void deleteUser(long id) {
+    public void deleteUser(Long id) {
         log.info("Удаление пользователя по идентификатору {}", id);
         userRepository.deleteById(id);
     }
