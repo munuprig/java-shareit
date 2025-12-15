@@ -28,7 +28,7 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse illegalVewAndUpdateException(IllegalVewAndUpdateException e) {
         log.info(e.getMessage());
         return new ErrorResponse(e.getMessage());
