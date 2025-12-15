@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 @NoArgsConstructor
 public class CommentDtoRequest {
 
-    private long id;
+    private Long id;
 
     @Size(max = 1000, groups = {Create.class, Update.class})
     @NotBlank(groups = {Create.class})

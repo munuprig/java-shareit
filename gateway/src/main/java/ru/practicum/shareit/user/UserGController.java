@@ -23,7 +23,7 @@ public class UserGController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getUserById(@PathVariable long userId) {
+    public ResponseEntity<Object> getUserById(@PathVariable Long userId) {
         log.info("GET / users / {}", userId);
         return userClient.getUserById(userId);
     }
@@ -35,14 +35,14 @@ public class UserGController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<Object> updateUser(@PathVariable long userId,
+    public ResponseEntity<Object> updateUser(@PathVariable Long userId,
                                              @Validated(Update.class) @RequestBody UserDtoRequest userDto) {
         log.info("PATCH / users / {}", userId);
         return userClient.updateUser(userId, userDto);
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Object> deleteUser(@PathVariable long userId) {
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId) {
         log.info("DELETE / users / {}", userId);
         return userClient.deleteUser(userId);
     }

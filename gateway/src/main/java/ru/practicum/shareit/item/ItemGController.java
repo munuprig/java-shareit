@@ -26,22 +26,22 @@ public class ItemGController {
 
     @PostMapping
     public ResponseEntity<Object> saveNewItem(@Validated(Create.class) @RequestBody ItemDtoRequest itemDto,
-                                              @RequestHeader("X-Sharer-User-Id") long userId) {
+                                              @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("POST / items {} / user {}", itemDto.getName(), userId);
         return itemClient.saveNewItem(itemDto, userId);
     }
 
     @PatchMapping("/{itemId}")
-    public ResponseEntity<Object> updateItem(@PathVariable long itemId,
+    public ResponseEntity<Object> updateItem(@PathVariable Long itemId,
                                              @Validated(Update.class) @RequestBody ItemDtoRequest itemDto,
-                                             @RequestHeader("X-Sharer-User-Id") long userId) {
+                                             @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("PATCH / items {} / user {}", itemId, userId);
         return itemClient.updateItem(itemId, itemDto, userId);
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Object> getItemById(@PathVariable long itemId,
-                                              @RequestHeader("X-Sharer-User-Id") long userId) {
+    public ResponseEntity<Object> getItemById(@PathVariable Long itemId,
+                                              @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / items {} / user {}", itemId, userId);
         return itemClient.getItemById(itemId, userId);
     }
@@ -49,7 +49,7 @@ public class ItemGController {
     @GetMapping
     public ResponseEntity<Object> getItemsByOwner(@RequestParam(defaultValue = "1") @PositiveOrZero Integer from,
                                                   @RequestParam(defaultValue = "10") @Positive Integer size,
-                                                  @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / items / user {}", userId);
         return itemClient.getItemsByOwner(from, size, userId);
     }
@@ -58,7 +58,7 @@ public class ItemGController {
     public ResponseEntity<Object> getItemBySearch(@RequestParam(defaultValue = "1") @PositiveOrZero Integer from,
                                                   @RequestParam(defaultValue = "10") @Positive Integer size,
                                                   @RequestParam String text,
-                                                  @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / search / {}", text);
         if (text.isBlank()) {
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
@@ -67,9 +67,9 @@ public class ItemGController {
     }
 
     @PostMapping("/{itemId}/comment")
-    public ResponseEntity<Object> saveNewComment(@PathVariable long itemId,
+    public ResponseEntity<Object> saveNewComment(@PathVariable Long itemId,
                                                  @Validated(Create.class) @RequestBody CommentDtoRequest commentDto,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("POST / comment / item {}", itemId);
         return itemClient.saveNewComment(itemId, commentDto, userId);
     }

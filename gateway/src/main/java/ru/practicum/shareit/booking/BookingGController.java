@@ -25,7 +25,7 @@ public class BookingGController {
 
     @PostMapping
     public ResponseEntity<Object> saveNewBooking(@Validated(Create.class) @RequestBody BookingDtoRequest bookingDto,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("POST / bookings");
         if (!bookingDto.getEnd().isAfter(bookingDto.getStart()) ||
                 bookingDto.getStart().isBefore(LocalDateTime.now())) {
@@ -35,16 +35,16 @@ public class BookingGController {
     }
 
     @PatchMapping("/{bookingId}")
-    public ResponseEntity<Object> approve(@PathVariable long bookingId,
+    public ResponseEntity<Object> approve(@PathVariable Long bookingId,
                                           @RequestParam(name = "approved") Boolean isApproved,
-                                          @RequestHeader("X-Sharer-User-Id") long userId) {
+                                          @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("PATCH / bookings / {}", bookingId);
         return bookingClient.approve(bookingId, isApproved, userId);
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<Object> getBookingById(@PathVariable long bookingId,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+    public ResponseEntity<Object> getBookingById(@PathVariable Long bookingId,
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("Get booking {}, userId={}", bookingId, userId);
         return bookingClient.getBookingById(bookingId, userId);
     }
@@ -53,7 +53,7 @@ public class BookingGController {
     public ResponseEntity<Object> getAllByBooker(@RequestParam(defaultValue = "1") @PositiveOrZero Integer from,
                                                  @RequestParam(defaultValue = "10") @Positive Integer size,
                                                  @RequestParam(name = "state", defaultValue = "ALL") String stateParam,
-                                                 @RequestHeader("X-Sharer-User-Id") long bookerId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long bookerId) {
         BookingState state = BookingState.from(stateParam)
                 .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
         log.info("GET / ByBooker {}", bookerId);
@@ -64,7 +64,7 @@ public class BookingGController {
     public ResponseEntity<Object> getAllByOwner(@RequestParam(defaultValue = "1") @PositiveOrZero Integer from,
                                                 @RequestParam(defaultValue = "10") @Positive Integer size,
                                                 @RequestParam(name = "state", defaultValue = "ALL") String stateParam,
-                                                @RequestHeader("X-Sharer-User-Id") long ownerId) {
+                                                @RequestHeader("X-Sharer-User-Id") Long ownerId) {
         BookingState state = BookingState.from(stateParam)
                 .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
         log.info("GET / ByOwner / {}", ownerId);

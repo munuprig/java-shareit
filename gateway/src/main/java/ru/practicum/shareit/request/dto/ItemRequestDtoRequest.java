@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 @NoArgsConstructor
 public class ItemRequestDtoRequest {
 
-    private long id;
+    private Long id;
 
     @NotBlank(groups = {Create.class, Update.class})
     @Size(max = 1000, groups = {Create.class, Update.class})

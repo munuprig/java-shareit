@@ -21,13 +21,13 @@ public class ItemRequestGController {
 
     @PostMapping
     public ResponseEntity<Object> saveNewRequest(@Validated(Create.class) @RequestBody ItemRequestDtoRequest requestDto,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("POST / requests {} / user {}", requestDto.getDescription(), userId);
         return requestClient.saveNewRequest(requestDto, userId);
     }
 
     @GetMapping
-    public ResponseEntity<Object> getRequestsByRequestor(@RequestHeader("X-Sharer-User-Id") long userId) {
+    public ResponseEntity<Object> getRequestsByRequestor(@RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / requests / requestor {}", userId);
         return requestClient.getRequestsByRequestor(userId);
     }
@@ -35,14 +35,14 @@ public class ItemRequestGController {
     @GetMapping("/all")
     public ResponseEntity<Object> getAllRequests(@RequestParam(defaultValue = "1") @PositiveOrZero Integer from,
                                                  @RequestParam(defaultValue = "10") @Positive Integer size,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / requests");
         return requestClient.getAllRequests(from, size, userId);
     }
 
     @GetMapping("/{requestId}")
-    public ResponseEntity<Object> getRequestById(@PathVariable long requestId,
-                                                 @RequestHeader("X-Sharer-User-Id") long userId) {
+    public ResponseEntity<Object> getRequestById(@PathVariable Long requestId,
+                                                 @RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("GET / request {} / user {}", requestId, userId);
         return requestClient.getRequestById(requestId, userId);
     }

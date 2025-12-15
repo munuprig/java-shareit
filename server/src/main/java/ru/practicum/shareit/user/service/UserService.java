@@ -2,6 +2,7 @@ package ru.practicum.shareit.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.EntityNotFoundException;
@@ -34,7 +35,7 @@ public class UserService {
         return UserMapper.toUserDto(user);
     }
 
-    public UserDto saveNewUser(UserDto userDto) {
+    public UserDto saveNewUser(@NotNull UserDto userDto) {
         log.info("Создание нового пользователя {}", userDto.getName());
         User user = userRepository.save(UserMapper.toUser(userDto));
         return UserMapper.toUserDto(user);
