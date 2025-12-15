@@ -126,7 +126,7 @@ public class ItemService {
         ItemDtoOut itemDtoOut = ItemMapper.toItemDtoOut(item);
 
         LocalDateTime thisMoment = LocalDateTime.now();
-        if (itemDtoOut.getOwner().getId() == userId) {
+        if (itemDtoOut.getOwner().getId().equals(userId)) {
             itemDtoOut.setLastBooking(bookingRepository
                     .findFirstByItemIdAndStartLessThanEqualAndStatus(itemDtoOut.getId(), thisMoment,
                             BookingStatus.APPROVED, Sort.by(DESC, "end"))
